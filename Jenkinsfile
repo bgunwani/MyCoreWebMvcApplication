@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        git "Default"  // This will use the Git tool configuration you set earlier in Jenkins' Global Tool Configuration
+    }
+
     environment {
         DOTNET_CLI_HOME = "C:\\Program Files\\dotnet"  // Optional, remove if not needed
     }
@@ -35,17 +39,4 @@ pipeline {
 
         stage('Publish') {
             steps {
-                script {
-                    // Publishing the application without restoring dependencies
-                    bat "dotnet publish --no-restore --configuration Release --output .\\publish"
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build, test, and publish successful!'
-        }
-    }
-}
+    
