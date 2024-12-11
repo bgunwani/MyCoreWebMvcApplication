@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOTNET_CLI_HOME = "C:\\Program Files\\dotnet"  // Optional, remove if not needed
+        DOTNET_CLI_HOME = "C:\\Program Files\\dotnet"
     }
 
     stages {
@@ -16,6 +16,7 @@ pipeline {
             steps {
                 script {
                     // Restoring dependencies
+                    //bat "cd ${DOTNET_CLI_HOME} && dotnet restore"
                     bat "dotnet restore"
 
                     // Building the application
@@ -27,7 +28,7 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Running tests without restoring dependencies
+                    // Running tests
                     bat "dotnet test --no-restore --configuration Release"
                 }
             }
@@ -36,7 +37,7 @@ pipeline {
         stage('Publish') {
             steps {
                 script {
-                    // Publishing the application without restoring dependencies
+                    // Publishing the application
                     bat "dotnet publish --no-restore --configuration Release --output .\\publish"
                 }
             }
