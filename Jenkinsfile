@@ -39,4 +39,17 @@ pipeline {
 
         stage('Publish') {
             steps {
-    
+                script {
+                    // Publishing the application without restoring dependencies
+                    bat "dotnet publish --no-restore --configuration Release --output .\\publish"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build, test, and publish successful!'
+        }
+    }
+}
